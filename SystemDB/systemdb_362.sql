@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 02, 2018 at 02:22 PM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 7.2.3
+-- Generation Time: Apr 02, 2018 at 03:25 PM
+-- Server version: 10.1.30-MariaDB
+-- PHP Version: 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -110,6 +110,30 @@ INSERT INTO `lawyers` (`ID`, `Name`, `Surname`, `Branch_ID`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `leaglopinions`
+--
+
+CREATE TABLE `leaglopinions` (
+  `ID` int(11) NOT NULL,
+  `UserID` int(11) NOT NULL,
+  `Description` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `recomendation`
+--
+
+CREATE TABLE `recomendation` (
+  `ID` int(11) NOT NULL,
+  `UserID` int(4) NOT NULL,
+  `Description` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -176,6 +200,18 @@ ALTER TABLE `lawyers`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Indexes for table `leaglopinions`
+--
+ALTER TABLE `leaglopinions`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `recomendation`
+--
+ALTER TABLE `recomendation`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -214,6 +250,18 @@ ALTER TABLE `clients`
 --
 ALTER TABLE `lawyers`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `leaglopinions`
+--
+ALTER TABLE `leaglopinions`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `recomendation`
+--
+ALTER TABLE `recomendation`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user`
