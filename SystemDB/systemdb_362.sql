@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 02, 2018 at 03:25 PM
--- Server version: 10.1.30-MariaDB
--- PHP Version: 7.2.1
+-- Generation Time: Apr 11, 2018 at 03:23 PM
+-- Server version: 10.1.31-MariaDB
+-- PHP Version: 7.2.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `systemdb_362`
+-- Database: `v2`
 --
 
 -- --------------------------------------------------------
@@ -34,16 +34,17 @@ CREATE TABLE `appointments` (
   `Date` date NOT NULL,
   `Lawyer_ID` int(4) NOT NULL,
   `Branch_ID` int(4) NOT NULL,
-  `Accomplish` tinyint(1) NOT NULL
+  `Accomplish` tinyint(1) NOT NULL,
+  `DateCreated` varchar(50) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `appointments`
 --
 
-INSERT INTO `appointments` (`ID`, `Client_ID`, `Date`, `Lawyer_ID`, `Branch_ID`, `Accomplish`) VALUES
-(1, 3, '2018-04-28', 1, 1, 1),
-(2, 2, '2018-04-17', 1, 1, 1);
+INSERT INTO `appointments` (`ID`, `Client_ID`, `Date`, `Lawyer_ID`, `Branch_ID`, `Accomplish`, `DateCreated`) VALUES
+(1, 3, '2018-04-28', 1, 1, 1, ''),
+(2, 2, '2018-04-17', 1, 1, 1, '');
 
 -- --------------------------------------------------------
 
@@ -76,16 +77,18 @@ CREATE TABLE `clients` (
   `Sex` char(1) NOT NULL,
   `DOB` date NOT NULL,
   `NeedsUpdate` tinyint(1) NOT NULL,
-  `DropIn` tinyint(1) NOT NULL
+  `DropIn` date NOT NULL,
+  `Telephone` varchar(25) NOT NULL,
+  `Address` varchar(50) NOT NULL,
+  `Status` varchar(10) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `clients`
 --
 
-INSERT INTO `clients` (`ID`, `Name`, `Surname`, `Sex`, `DOB`, `NeedsUpdate`, `DropIn`) VALUES
-(2, 'Nikolas', 'Chatzigiannis', 'M', '2018-04-18', 0, 0),
-(3, 'George', 'Stavrou', 'M', '2018-04-11', 0, 1);
+INSERT INTO `clients` (`ID`, `Name`, `Surname`, `Sex`, `DOB`, `NeedsUpdate`, `DropIn`, `Telephone`, `Address`, `Status`) VALUES
+(2, 'Nikolas', 'Chatzigiannis', 'M', '2018-04-18', 0, '0000-00-00', '', '', '');
 
 -- --------------------------------------------------------
 
