@@ -4,8 +4,7 @@ import java.util.ArrayList;
 
 public interface ReceptionistUI {
 
-	
-	public boolean insertClient(String Name, String Surname, String Sex,String DOB, String Telephone, String Address);
+	public boolean insertClient(String Name, String Surname, String Sex,String DOB, String Telephone, String Address, boolean Legal);
 
 	public boolean getClient(ArrayList<Object[]> Q);
 	
@@ -18,4 +17,5 @@ public interface ReceptionistUI {
 	public boolean checkIfClientWent(int AppointmentID, String accomplish);
 	
 	public boolean insertDropIN(int ClientID);
+
 }
