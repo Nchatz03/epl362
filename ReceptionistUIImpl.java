@@ -1,4 +1,4 @@
-package com.javaworld.sample.helloservice;
+package dbconnection;
 import java.sql.Connection;
 import java.util.*;
 import java.util.Date;
@@ -20,7 +20,7 @@ public class ReceptionistUIImpl implements ReceptionistUI {
 			throw new IllegalStateException("Cannot find the driver in the classpath!", e);
 		}
 
-		String url = "jdbc:mysql://127.0.0.1:3306/v2?useSSL=false";
+		String url = "jdbc:mysql://127.0.0.1:3306/systemdb_362?useSSL=false";
 		String username = "root";
 		String password = "";
 		
@@ -96,10 +96,11 @@ public class ReceptionistUIImpl implements ReceptionistUI {
 			
 			while(result.next()){
 				//System.out.println(result.getString("ID")+result.getString("Name")
-				// +result.getString("Surname")+ result.getString("DOB")+result.getString("Sex")+ result.getString("Telephone") + result.getString("Address") + result.getString("Suicide"));
+				 //+result.getString("Surname")+ result.getString("DOB")+result.getString("Sex")+ result.getString("Telephone") + result.getString("Address"));
 
 				 Q.add(new Object[]{result.getString("ID"),result.getString("Name"),result.getString("Surname"),result.getString("Sex"), result.getString("DOB"),
-						 result.getString("Telephone"), result.getString("Address"), result.getString("DropIn"),result.getString("NeedsUpdate"),result.getString("Legal") });
+						 result.getString("Telephone"), result.getString("Address"), result.getString("DropIn"),result.getString("NeedsUpdate"),result.getString("Legal"),result.getString("Status")
+						 ,result.getString("Rec_LegalOp"),result.getString("CaseTrans"),result.getString("ChangedRecord") });
 				 
 			 }
 			//System.out.println(Q.toString());
@@ -131,11 +132,11 @@ public class ReceptionistUIImpl implements ReceptionistUI {
 			 		
 			
 			while(result.next()){
-				//System.out.println(result.getString("ID")+result.getString("Name")+result.getString("Surname")+
-				// result.getString("DOB")+result.getString("Sex")+ result.getString("Telephone") + result.getString("Address") + result.getString("Suicide"));
-				 Q.add(new Object[]{result.getString("ID"),result.getString("Name"),result.getString("Surname"),
-						 result.getString("Sex"), result.getString("DOB"), result.getString("Telephone"), result.getString("Address"), result.getString("DropIn"),result.getString("NeedsUpdate"),result.getString("Legal")});
-				 
+//				System.out.println(result.getString("ID")+result.getString("Name")+result.getString("Surname")+
+//				 result.getString("DOB")+result.getString("Sex")+ result.getString("Telephone") + result.getString("Address"));
+				 Q.add(new Object[]{result.getString("ID"),result.getString("Name"),result.getString("Surname"),result.getString("Sex"), result.getString("DOB"),
+						 result.getString("Telephone"), result.getString("Address"), result.getString("DropIn"),result.getString("NeedsUpdate"),result.getString("Legal"),result.getString("Status")
+						 ,result.getString("Rec_LegalOp"),result.getString("CaseTrans"),result.getString("ChangedRecord") });
 			 }
 			//System.out.println(Q.toString());
 			//columns = new String[]{ "Name", "Surname", "DOB", "Sex", "Telephone", "Address", "Suicide"};
@@ -158,13 +159,13 @@ public class ReceptionistUIImpl implements ReceptionistUI {
 			 PreparedStatement Stmt = connection.prepareStatement(query);
 			Stmt.setInt(1, ClientID);
 			ResultSet result = Stmt.executeQuery();
-			if(result.next()){
+			/*if(result.next()){
 				if(result.getBoolean("DEACTIVE")==true){
 					return false;
 					
 				}
 			}
-			else return false;
+			else return false;*/
 			
 			 
 
@@ -200,7 +201,11 @@ public class ReceptionistUIImpl implements ReceptionistUI {
 			result = stm.executeQuery(Query);			
 			
 			while(result.next()){
-				 Q.add(new Object[]{result.getString("ID"),result.getString("Client_ID"), result.getString("Date")
+				
+				//System.out.println(result.getString("ID")+result.getString("Client_ID")
+				 //+result.getString("Date")+ result.getString("Lawyer_ID")+result.getString("Branch_ID")+ result.getString("DateCreated") + result.getString("Accomplish"));
+				
+				Q.add(new Object[]{result.getString("ID"),result.getString("Client_ID"), result.getString("Date")
 						 ,result.getString("Lawyer_ID"), result.getString("Branch_ID"),result.getString("DateCreated"),result.getString("Accomplish")});
 				 
 			 }
@@ -241,6 +246,35 @@ public class ReceptionistUIImpl implements ReceptionistUI {
 		}
 	      
 	     return true;
+	}
+	
+	
+	public boolean getLawyers(ArrayList<Object[]> Q){
+		 
+		try {
+			Statement stm = connection.createStatement();
+			 String Query = "Select * from lawyers";
+			 ResultSet result;
+			result = stm.executeQuery(Query);			
+			
+			while(result.next()){
+				
+
+				 Q.add(new Object[]{result.getString("ID"),result.getString("Name"),result.getString("Surname"),
+						 result.getString("Branch_ID")});
+				 
+			 }
+			
+		} catch (SQLException e) {
+			
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		
+	
+		return true;
+		 
 	}
 	
 

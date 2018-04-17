@@ -1,4 +1,4 @@
-package com.javaworld.sample.helloservice;
+package dbconnection;
 
 import java.util.ArrayList;
 
@@ -17,5 +17,8 @@ public interface ReceptionistUI {
 	public boolean checkIfClientWent(int AppointmentID, String accomplish);
 	
 	public boolean insertDropIN(int ClientID);
+	
+	
+	public boolean getLawyers(ArrayList<Object[]> Q);
 
 }
