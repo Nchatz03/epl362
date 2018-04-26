@@ -133,7 +133,7 @@ public class Receptionistgui {
 		panel.add(DOB);
 		DOB.setColumns(10);
 
-		JLabel lblDdmmyyyy = new JLabel("DD/MM/YYYY");
+		JLabel lblDdmmyyyy = new JLabel("YYYY-MM-DD");
 		lblDdmmyyyy.setBounds(146, 118, 116, 16);
 		panel.add(lblDdmmyyyy);
 
@@ -239,7 +239,7 @@ public class Receptionistgui {
 		lblDate.setBounds(12, 76, 56, 16);
 		panel_1.add(lblDate);
 
-		JLabel lblDdmmyyy = new JLabel("DD/MM/YYY");
+		JLabel lblDdmmyyy = new JLabel("YYYY-MM-DD");
 		lblDdmmyyy.setBounds(136, 52, 77, 16);
 		panel_1.add(lblDdmmyyy);
 
