@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="DBconnection">
+    <property environment="env"/>
+    <property name="com.mysql.jdbc.location" value="../com.mysql.jdbc"/>
+    <property name="ECLIPSE_HOME" value="C:/Users/louka/Desktop/eclipse/"/>
+    <property name="junit.output.dir" value="junit"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.8"/>
+    <property name="source" value="1.8"/>
+    <path id="Plug-in Dependencies.libraryclasspath">
+        <pathelement location="${ECLIPSE_HOME}configuration/org.eclipse.osgi/703/0/.cp/lib/annotations.jar"/>
+        <pathelement location="../../../../../../../com.mysql.jdbc"/>
+        <pathelement location="${ECLIPSE_HOME}plugins/org.junit_4.12.0.v201504281640/junit.jar"/>
+        <pathelement location="${ECLIPSE_HOME}plugins/org.hamcrest.core_1.3.0.v201303031735.jar"/>
+        <pathelement location="${ECLIPSE_HOME}plugins/org.eclipse.osgi_3.12.50.v20170928-1321.jar"/>
+        <pathelement location="${ECLIPSE_HOME}plugins/org.eclipse.osgi.compatibility.state_1.1.0.v20170516-1513.jar"/>
+    </path>
+    <path id="DBconnection.classpath">
+        <path refid="Plug-in Dependencies.libraryclasspath"/>
+        <pathelement location="bin"/>
+        <pathelement location="${com.mysql.jdbc.location}"/>
+        <pathelement location="../../../../../Downloads/mysql-connector-java-5.1.46/mysql-connector-java-5.1.46/mysql-connector-java-5.1.46.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.ucls"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="DBconnection.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target name="JUnitTestSuit">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="test.JUnitTestSuit" todir="${junit.output.dir}"/>
+            <jvmarg line="-ea"/>
+            <classpath refid="DBconnection.classpath"/>
+        </junit>
+    </target>
+    <target name="run">
+        <java classname="test.TestRunner" failonerror="true" fork="yes">
+            <classpath refid="DBconnection.classpath"/>
+        </java>
+    </target>
+    <target name="junitreport">
+        <junitreport todir="${junit.output.dir}">
+            <fileset dir="${junit.output.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${junit.output.dir}"/>
+        </junitreport>
+    </target>
+</project>
