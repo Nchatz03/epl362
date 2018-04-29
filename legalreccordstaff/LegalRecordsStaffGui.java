@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 
 import dbconnection.LegalRecordsUI;
 import dbconnection.LegalStaffUI;
+import dbconnection.ReceptionistUI;
+
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -31,7 +33,7 @@ public class LegalRecordsStaffGui {
 	private JTextField cli_address;
 	private JTextField cli_telephone;
 	private JTextField cli_request;
-
+private JScrollPane scrollPane_1 ;
 	/**
 	 * Launch the application.
 	 */
@@ -70,7 +72,7 @@ public class LegalRecordsStaffGui {
 		frame.getContentPane().add(tabbedPane);
 
 		JPanel panel = new JPanel();
-		tabbedPane.addTab("", null, panel, null);
+		tabbedPane.addTab("Records Update", null, panel, null);
 		panel.setLayout(null);
 
 		scrollPane = new JScrollPane();
@@ -161,6 +163,9 @@ public class LegalRecordsStaffGui {
 					le.requestDecision(Integer.parseInt(cli_request.getText()), true);
 					
 				}
+				
+				seeRecuest(le);
+
 			}
 		});
 		btnUpdate.setBounds(38, 326, 175, 35);
@@ -177,8 +182,10 @@ public class LegalRecordsStaffGui {
 				le.noUpdateRecord(Integer.parseInt(cli_id.getText()));
 				le.updateDone(Integer.parseInt(cli_request.getText()));
 				le.requestDecision(Integer.parseInt(cli_request.getText()), false);
-
+				seeRecuest(le);
 				}
+				
+				
 			}
 		});
 		btnNoUpdate.setBounds(38, 374, 175, 35);
@@ -221,6 +228,70 @@ public class LegalRecordsStaffGui {
 		});
 		btnRemove.setBounds(38, 544, 175, 25);
 		panel.add(btnRemove);
+		
+		JPanel panel_1 = new JPanel();
+		tabbedPane.addTab("Records", null, panel_1, null);
+		panel_1.setLayout(null);
+		
+		  scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(199, 13, 917, 554);
+		panel_1.add(scrollPane_1);
+		
+		JButton btnNewButton_1 = new JButton("Clients");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+				cli(le);
+				
+			}
+		});
+		btnNewButton_1.setBounds(12, 25, 97, 25);
+		panel_1.add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("Appointments");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				apo(le);
+				
+						}
+		});
+		btnNewButton_2.setBounds(12, 88, 131, 25);
+		panel_1.add(btnNewButton_2);
+		
+		JButton btnClientsCases = new JButton("Clients Cases");
+		btnClientsCases.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				cas(le);
+				
+			}
+		});
+		btnClientsCases.setBounds(12, 142, 131, 25);
+		panel_1.add(btnClientsCases);
+		
+		JButton btnDispute = new JButton("Dispute");
+		btnDispute.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+		
+				cliDispute(le);
+				
+			}
+		});
+		btnDispute.setBounds(12, 201, 111, 25);
+		panel_1.add(btnDispute);
+		
+		JButton btnNewButton_3 = new JButton("Dispute \r\nTransaction");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				cliDispute_transaction(le);
+			}
+		});
+		btnNewButton_3.setBounds(12, 263, 154, 46);
+		panel_1.add(btnNewButton_3);
 	}
 
 	public void seeRecuest(LegalRecordsUI le) {
@@ -266,6 +337,125 @@ public class LegalRecordsStaffGui {
 		table_1.setModel(new DefaultTableModel(rowData, columns));
 
 		scrollPane.setViewportView(table_1);
+
+	}
+	
+	
+	public void cliDispute(LegalRecordsUI le) {
+		Object rowData[][] = null; // {{1,1,1,1,1,1,1}};
+		String columns[] = null;
+		columns = new String[] { "Dispute ID", "Client ID", "Date", "Case", "Recommendation or Legal Opinion" };
+		//
+		ArrayList<Object[]> clientsList = new ArrayList<Object[]>();
+		le.getDispute(clientsList);
+
+		rowData = new Object[clientsList.size()][10];
+
+		// ColumnModel
+
+		for (int i = 0; i < clientsList.size(); i++) {
+			rowData[i] = clientsList.get(i);
+		}
+		JTable table_1 = new JTable();
+		table_1.setModel(new DefaultTableModel(rowData, columns));
+
+		scrollPane_1.setViewportView(table_1);
+
+	}
+	
+	public void cli(LegalRecordsUI le) {
+		Object rowData[][] = null; // {{1,1,1,1,1,1,1}};
+		String columns[] = null;
+		columns = new String[] { "ID", "Name", "Surname", "Sex", "DOB", "NeedsUpdate", "Telephone", "Address", "Status",
+				"Legal" };
+		//
+		ArrayList<Object[]> clientsList = new ArrayList<Object[]>();
+		le.getClient(clientsList);
+
+		rowData = new Object[clientsList.size()][10];
+
+		// ColumnModel
+
+		for (int i = 0; i < clientsList.size(); i++) {
+			rowData[i] = clientsList.get(i);
+		}
+		JTable table_1 = new JTable();
+		table_1.setModel(new DefaultTableModel(rowData, columns));
+
+		scrollPane_1.setViewportView(table_1);
+
+	}
+	
+	
+	
+	public void apo(LegalRecordsUI le) {
+		Object rowData[][] = null; // {{1,1,1,1,1,1,1}};
+		String columns[] = null;
+		 columns =new String[] { "ID", "Client_ID", "Date", "Lawyer_Id", "Branch_ID", "Date_Created", "Accomplish","Case Trans" };
+
+		ArrayList<Object[]> apoList = new ArrayList<Object[]>();
+		le.getAppointments(apoList);
+
+		rowData = new Object[apoList.size()][7];
+
+		// ColumnModel
+
+		for (int i = 0; i < apoList.size(); i++) {
+			rowData[i] = apoList.get(i);
+		}
+		JTable table_apo = new JTable();
+		table_apo.setModel(new DefaultTableModel(rowData, columns));
+
+		scrollPane_1.setViewportView(table_apo);
+		///
+	}
+	
+	
+	
+	public void cas(LegalRecordsUI le) {
+		Object rowData[][] = null; // {{1,1,1,1,1,1,1}};
+		String columns[] = null;
+		columns = new String[] { "ID", "Client ID", "Case", "Recommendation or Legal Opinion", "Lawyer ID", "Illegal" };
+		//
+		ArrayList<Object[]> caseList = new ArrayList<Object[]>();
+		le.getCases(caseList);
+
+		rowData = new Object[caseList.size()][10];
+
+		// ColumnModel
+
+		for (int i = 0; i < caseList.size(); i++) {
+			rowData[i] = caseList.get(i);
+		}
+		JTable table_1 = new JTable();
+		table_1.setModel(new DefaultTableModel(rowData, columns));
+
+		scrollPane_1.setViewportView(table_1);
+
+	}
+	
+	
+	
+	public void cliDispute_transaction(LegalRecordsUI le) {
+		Object rowData[][] = null; // {{1,1,1,1,1,1,1}};
+		String columns[] = null;
+		columns = new String[] { "DisputeTrans_ID", "Client ID", "Date", "Case", "Recommendation or Legal Opinion",
+				"Lawyer ID" };
+		//
+		ArrayList<Object[]> clientsList = new ArrayList<Object[]>();
+		le.getDisputeTransaction(clientsList);
+
+		rowData = new Object[clientsList.size()][10];
+
+		// ColumnModel
+
+		for (int i = 0; i < clientsList.size(); i++) {
+			rowData[i] = clientsList.get(i);
+		}
+		JTable table_1 = new JTable();
+		table_1.setModel(new DefaultTableModel(rowData, columns));
+
+		scrollPane_1.setViewportView(table_1);
 
 	}
 	
