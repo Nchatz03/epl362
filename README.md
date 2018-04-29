@@ -4,7 +4,7 @@ This is a project for the EPL362 Computer Science Course for the University of C
 
 Copyright (c) 2018 EPL362 Development Team, University of Cyprus
 
-
+Αρχικά να αναφέρουμε ότι το τελικό version του συστήματος βρίσκετε στο αρχείο HeadOfficeSystem.Μόνο εκείνο μπορεί να τρέξει στο σύνολο του.
 Για τους σκοπούς αυτού του project χρησιμοποιήσαμε την τεχνολογία OSGI. Τα συστατικά στοιχεία του συστήματος διαχωρίστηκαν σε bundles.
 Τα bundles μας είναι 6, 1 για κάθε viewpoint(4), ένα που υλοποιεί την επικοινωνία μεταξύ προγράμματος και βάσης δεδομένων και ένα που 
 περίεχει τα mysql query  . Ο φάκελος που βρίσκεται μέσα το bundle που υλοποιεί τη δύνδεση με τη βάση είναι το DBconnection το οποίο κάνει 
