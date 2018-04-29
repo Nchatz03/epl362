@@ -116,10 +116,17 @@ public class LegalStaffGui {
 		JButton btnNeedsUpdate = new JButton("Needs Update");
 		btnNeedsUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				if(cli_cli_id.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Give Client ID", "Message",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+				else {
 				int id = Integer.parseInt(cli_cli_id.getText());
 				le.needsUpdate(id);
 				cli(le);
+				}
+				
+				 
 			}
 		});
 		btnNeedsUpdate.setBounds(36, 99, 149, 25);
@@ -196,8 +203,7 @@ public class LegalStaffGui {
 		panel_1.add(lblCase);
 
 		JComboBox comboBox_le = new JComboBox();
-		comboBox_le.setModel(new DefaultComboBoxModel(new String[] { "Legal Opinion 1", "Legal Opinion 2",
-				"Legal Opinion 3", "Recommendation  1", "Recommendation  2", "Recommendation  3" }));
+		comboBox_le.setModel(new DefaultComboBoxModel(new String[] {"Legal Opinion 1", "Legal Opinion 2", "Legal Opinion 3", "Legal Opinion 4", "Legal Opinion 5", "Recommendation 1", "Recommendation 2", "Recommendation 3", "Recommendation 4\t", "Recommendation 5\t"}));
 		comboBox_le.setBounds(511, 382, 233, 37);
 		panel_1.add(comboBox_le);
 
@@ -372,7 +378,7 @@ public class LegalStaffGui {
 		cli_appoi.setColumns(10);
 		
 		  case_comboBox = new JComboBox();
-		case_comboBox.setModel(new DefaultComboBoxModel(new String[] {"CaseType1", "CaseType2", "CaseType3", "CaseType4", "CaseType5"}));
+		case_comboBox.setModel(new DefaultComboBoxModel(new String[] {"Case Type 1", "Case Type 2", "Case Type 3", "Case Type 4", "Case Type 5"}));
 		case_comboBox.setBounds(22, 163, 226, 37);
 		panel_1.add(case_comboBox);
 
@@ -428,6 +434,8 @@ public class LegalStaffGui {
 							req_phone.isSelected(), req_dbo.isSelected(), request_name.getText(),
 							request_surname.getText(), request_address.getText(), request_phone.getText(),
 							request_DBO.getText());
+					le.needsUpdate(i);
+
 				}
 			}
 		});
@@ -536,7 +544,7 @@ public class LegalStaffGui {
 		btnGetAppointmants.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				vieAppoi(le);
+				vieAppoi(le );
 				
 			}
 		});
