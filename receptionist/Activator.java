@@ -21,16 +21,15 @@ public class Activator implements BundleActivator {
 		System.out.println("louakas ");
 		receReference = bundleContext.getServiceReference(ReceptionistUI.class.getName());
      	ReceptionistUI receptionDB  = (ReceptionistUI)bundleContext.getService(receReference);		
-//		 ManagementReference= context.getServiceReference(Management.class.getName());
-//	        Management management  = (Management)context.getService(ManagementReference);
-//	        MainManagement m = new MainManagement(management);
-//	        m.frame.setVisible(true);
-//		
-		Receptionistgui window=new Receptionistgui(receptionDB);
-		window.frame.setVisible(true);
+	
+		//Receptionistgui window=new Receptionistgui(receptionDB);
+     	LoginReceptionist window=new LoginReceptionist(receptionDB);
+     	
+     	window.frame.setVisible(true);
 		
 	}
 
+ 
 	/*
 	 * (non-Javadoc)
 	 * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)

@@ -15,13 +15,22 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JPanel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JCheckBox;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 
 //import dbconnection.*;
 public class Receptionistgui {
@@ -269,15 +278,32 @@ public class Receptionistgui {
 		JButton apo_btn_insert = new JButton("Insert");
 		apo_btn_insert.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			
+				
+				
 				int client = Integer.parseInt(client_id.getText());
 				String date = apo_date.getText();
 				int lawyer = Integer.parseInt(lawyer_id.getText());
 				int branch = Integer.parseInt(branch_id.getText());
 				if (chckbxDropIn.isSelected()) {
-					re.insertDropIN(client, date, lawyer, branch);
+					if(re.insertDropIN(client, date, lawyer, branch)==false) {
+						JOptionPane.showMessageDialog(null, "Not an active client", "Message",
+								JOptionPane.INFORMATION_MESSAGE);
+						
+					}
+					else {
+						printAppointment( client, date, lawyer, branch, true);
+					}
+					
 				}
 				else {
-					re.insertAppointment(client, date, lawyer, branch);
+					if(re.insertAppointment(client, date, lawyer, branch)==false) {
+					JOptionPane.showMessageDialog(null, "Not an active client", "Message",
+							JOptionPane.INFORMATION_MESSAGE);
+					}
+					else {
+						printAppointment( client, date, lawyer, branch, false);
+					}
 				}
 				apo(re);
 
@@ -492,5 +518,46 @@ public class Receptionistgui {
 
 		scrollPane_4.setViewportView(table_dro);
 		///
+	}
+	
+	
+	
+	
+	
+	
+	public boolean printAppointment( int ClientID, String Date, int lawyerID, int BranchID, Boolean dropIn) {
+		String x;
+		if (dropIn == true) {
+			x = "YES";
+		} else
+			x = "NO";
+		
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		Date dNOW = new Date();
+		String myDate = f.format(dNOW);
+		
+		try (FileWriter fw = new FileWriter("C:\\Users\\louka\\Google Drive\\ucy\\UCY_2018_summer\\EPL_362\\Receptionist1\\Appointments.txt", true);
+				BufferedWriter bw = new BufferedWriter(fw);
+				PrintWriter out = new PrintWriter(bw)) {
+			 
+			// more code
+			out.println("Client ID:     " + ClientID);
+			// more code
+			out.println("Date:     " + Date);
+			out.println("Lawyer ID:       " + lawyerID);
+			out.println("Branch ID: " + BranchID);
+			out.println("Date Created:       " + myDate);
+			out.println("Drop in?       " + x);
+			out.println("\n------------------------------------------------------------\n");
+			
+		
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
+		
+		
 	}
 }
